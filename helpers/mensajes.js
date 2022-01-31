@@ -1,4 +1,7 @@
-const mostrarMenu = (itemSeleccionado = 0) => {
+const readline = require('readline');
+const { stdin: input, stdout: output } = require('process');
+
+const mostrarMenu = async(itemSeleccionado = 0) => {
     const indicaciones = '(Use arrows keys)'.gray;
     const marcador = '> ';
     const sinMarcador = '  ';
@@ -30,8 +33,24 @@ const mostrarMenu = (itemSeleccionado = 0) => {
         }
         console.log(textoMenu);
     };
+    console.log('');
+
+    const rl = readline.createInterface({ input, output });
+    rl.question('Seleccione una opción:', respuesta => {
+        console.log(respuesta);
+        rl.close();
+    });
+}
+
+const pausa = () => {
+    const rl = readline.createInterface({ input, output });
+    rl.question('Presione ' + 'ENTER'.yellow + ' para continuar', respuesta => {
+        console.log(respuesta);
+        rl.close();
+    });
 }
 
 module.exports = {
-    mostrarMenu
+    mostrarMenu,
+    pausa
 }
