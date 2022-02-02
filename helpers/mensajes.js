@@ -1,6 +1,5 @@
 const readline = require('readline');
 const { stdin: input, stdout: output } = require('process');
-const { resolve } = require('path');
 
 const mostrarMenu = (itemSeleccionado = 0) => {
     const indicaciones = '(Use arrows keys)'.gray;
