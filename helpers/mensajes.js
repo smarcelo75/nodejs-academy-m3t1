@@ -1,14 +1,16 @@
 const readline = require('readline');
 const { stdin: input, stdout: output } = require('process');
+const { resolve } = require('path');
 
-const mostrarMenu = async(itemSeleccionado = 0) => {
+const mostrarMenu = (itemSeleccionado = 0) => {
     const indicaciones = '(Use arrows keys)'.gray;
     const marcador = '> ';
     const sinMarcador = '  ';
     const opciones = [];
-    for (let i = 1; i < 8; i += 1) {
+    for (let i = 1; i < 7; i += 1) {
         opciones.push(`${i}.`.green);
     }
+    opciones.push('0.'.green);
 
     let itemsMenu = [];
     itemsMenu.push('Crear tarea');
@@ -35,19 +37,25 @@ const mostrarMenu = async(itemSeleccionado = 0) => {
     };
     console.log('');
 
-    const rl = readline.createInterface({ input, output });
-    rl.question('Seleccione una opción:', respuesta => {
-        console.log(respuesta);
-        rl.close();
+    const promesa = new Promise((resolve, reject) => {
+        const rl = readline.createInterface({ input, output });
+        rl.question('Seleccione una opción:', respuesta => {
+            rl.close();
+            resolve(respuesta);
+        });
     });
+    return promesa;
 }
 
 const pausa = () => {
-    const rl = readline.createInterface({ input, output });
-    rl.question('Presione ' + 'ENTER'.yellow + ' para continuar', respuesta => {
-        console.log(respuesta);
-        rl.close();
+    const promesa = new Promise((resolve, reject) => {
+        const rl = readline.createInterface({ input, output });
+        rl.question('Presione ' + 'ENTER'.yellow + ' para continuar', respuesta => {
+            rl.close();
+            resolve(respuesta);
+        });
     });
+    return promesa;
 }
 
 module.exports = {
