@@ -1,4 +1,5 @@
 require('colors');
+const { guardarDB } = require('../helpers/guardarArchivo');
 const {
     mostrarMenu,
     pausar,
@@ -19,6 +20,11 @@ const main = async() => {
                 const descripcion = await leerEntrada('Ingrese la descripción de la tarea:');
                 tareas.crear(descripcion);
                 console.log(`Se creo la nueva tarea: ${descripcion.yellow}`.green);
+                try {
+                    guardarDB(tareas.listarArr);
+                } catch (error) {
+                    console.error(String(error.message).red);
+                }
                 break;
             case '2':
                 console.log('Listado de tareas: \n'.yellow);
