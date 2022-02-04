@@ -10,6 +10,21 @@ const guardarDB = (datos) => {
     }
 }
 
+const leerDB = () => {
+    try {
+        let datos = '';
+        if (fs.existsSync(pathFile)) {
+            datos = fs.readFileSync(pathFile, { encoding: 'utf-8' });
+        } else {
+            throw new Error('No existe el archivo de base de datos');
+        }
+        return JSON.parse(datos);
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
 module.exports = {
-    guardarDB
+    guardarDB,
+    leerDB
 }

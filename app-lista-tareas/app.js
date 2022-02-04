@@ -1,5 +1,8 @@
 require('colors');
-const { guardarDB } = require('../helpers/guardarArchivo');
+const {
+    guardarDB,
+    leerDB
+} = require('../helpers/guardarArchivo');
 const {
     mostrarMenu,
     pausar,
@@ -15,21 +18,22 @@ const main = async() => {
     let opcion = '';
     do {
         opcion = await mostrarMenu();
-        switch (opcion) {
-            case '1':
-                const descripcion = await leerEntrada('Ingrese la descripción de la tarea:');
-                tareas.crear(descripcion);
-                console.log(`Se creo la nueva tarea: ${descripcion.yellow}`.green);
-                try {
+        try {
+            switch (opcion) {
+                case '1':
+                    const descripcion = await leerEntrada('Ingrese la descripción de la tarea:');
+                    tareas.crear(descripcion);
+                    console.log(`Se creo la nueva tarea: ${descripcion.yellow}`.green);
                     guardarDB(tareas.listarArr);
-                } catch (error) {
-                    console.error(String(error.message).red);
-                }
-                break;
-            case '2':
-                console.log('Listado de tareas: \n'.yellow);
-                console.log(tareas.listarArr);
-                break;
+                    break;
+                case '2':
+                    const datos = leerDB();
+                    console.log('Listado de tareas: \n'.yellow);
+                    console.log(datos);
+                    break;
+            }
+        } catch (error) {
+            console.error(String(error.message).red);
         }
         await pausar();
     } while (opcion !== '0');
