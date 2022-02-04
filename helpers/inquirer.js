@@ -21,37 +21,44 @@ const mostrarMenu = async() => {
     console.log('==========================');
     console.log('');
 
-    const promesa = new Promise((resolve, reject) => {
-        inquirer
-            .prompt([{
-                type: "list",
-                name: "opcion",
-                message: '¿Que desea hacer?',
-                choices: itemsMenu,
-            }])
-            .then((answers) => {
-                resolve(answers.opcion);
-            });
-    });
-    return promesa;
+    const question = [{
+        type: "list",
+        name: "opcion",
+        message: '¿Que desea hacer?',
+        choices: itemsMenu,
+    }];
+    const { opcion } = await inquirer.prompt(question);
+    return opcion;
 }
 
-const pausa = () => {
-    const promesa = new Promise((resolve, reject) => {
-        inquirer
-            .prompt([{
-                type: 'input',
-                name: 'enter',
-                message: 'Presione ' + 'ENTER'.yellow + ' para continuar',
-            }])
-            .then((answers) => {
-                resolve(answers.enter);
-            })
-    });
-    return promesa;
+const pausar = async() => {
+    const question = [{
+        type: 'input',
+        name: 'enter',
+        message: 'Presione ' + 'ENTER'.yellow + ' para continuar',
+    }];
+    const { enter } = await inquirer.prompt(question);
+    return enter;
 };
+
+const leerEntrada = async(mensaje) => {
+    const question = [{
+        type: 'input',
+        name: 'valor',
+        message: mensaje,
+        validate(value) {
+            if (value.length === 0) {
+                return 'Por favor ingrese un valor';
+            }
+            return true;
+        }
+    }];
+    const { valor } = await inquirer.prompt(question);
+    return valor;
+}
 
 module.exports = {
     mostrarMenu,
-    pausa
+    pausar,
+    leerEntrada
 }
