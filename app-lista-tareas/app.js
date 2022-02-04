@@ -22,7 +22,7 @@ const main = async() => {
                 break;
             case '2':
                 console.log('Listado de tareas: \n'.yellow);
-                console.log(tareas.listar());
+                console.log(tareas.listarArr);
                 break;
         }
         await pausar();

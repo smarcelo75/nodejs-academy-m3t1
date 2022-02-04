@@ -16,9 +16,9 @@ itemsMenu.push({ name: `${opciones[5]} Borrar tarea`, value: '6' });
 itemsMenu.push({ name: `${opciones[6]} Salir`, value: '0' });
 
 const mostrarMenu = async() => {
-    console.log('==========================');
+    console.log('=========================='.green);
     console.log('  Seleccione un opción');
-    console.log('==========================');
+    console.log('=========================='.green);
     console.log('');
 
     const question = [{
