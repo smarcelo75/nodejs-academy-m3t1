@@ -11,17 +11,14 @@ const guardarDB = (datos) => {
 }
 
 const leerDB = () => {
-    try {
-        let datos = '';
-        if (fs.existsSync(pathFile)) {
-            datos = fs.readFileSync(pathFile, { encoding: 'utf-8' });
-        } else {
-            throw new Error('No existe el archivo de base de datos');
+    let datosJson = {};
+    if (fs.existsSync(pathFile)) {
+        datos = fs.readFileSync(pathFile, { encoding: 'utf-8' });
+        if (String(datos).trim().length > 0) {
+            datosJson = JSON.parse(datos);
         }
-        return JSON.parse(datos);
-    } catch (error) {
-        throw new Error(error.message);
     }
+    return datosJson;
 }
 
 module.exports = {
