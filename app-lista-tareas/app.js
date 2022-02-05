@@ -14,6 +14,8 @@ console.clear;
 
 const main = async() => {
     const tareas = new Tareas();
+    let datos = leerDB();
+    tareas.cargarTareasFromArray(datos);
     console.log('Hola Mundo'.rainbow);
     let opcion = '';
     do {
@@ -27,9 +29,7 @@ const main = async() => {
                     guardarDB(tareas.listarArr);
                     break;
                 case '2':
-                    const datos = leerDB();
-                    console.log('Listado de tareas: \n'.yellow);
-                    console.log(datos);
+                    console.log(tareas.listadoCompleto());
                     break;
             }
         } catch (error) {
