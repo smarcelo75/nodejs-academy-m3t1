@@ -114,6 +114,17 @@ class Tareas {
             delete this._listado[id];
         }
     }
+
+    toggleCompletadas(ids) {
+        Object.keys(this._listado).forEach(id => {
+            let idx = ids.find(e => e === id);
+            if (idx === undefined) {
+                this._listado[id].completadoEn = null;
+            } else if (this._listado[id].completadoEn === null) {
+                this._listado[id].completadoEn = new Date().toISOString();
+            }
+        });
+    }
 }
 
 module.exports = {
