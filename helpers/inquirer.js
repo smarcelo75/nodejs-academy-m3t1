@@ -82,10 +82,30 @@ const confirmar = async(mensaje) => {
     return ok;
 };
 
+const mostrarListadoChecklist = async(listado) => {
+    let listadoTareas = [];
+    for (let i = 0; i < listado.length; i += 1) {
+        listadoTareas.push({
+            name: `${i+1}. ${listado[i].desc}`,
+            value: `${listado[i].id}`,
+            checked: listado[i].completadoEn !== null ? true : false
+        });
+    }
+    const question = [{
+        type: "checkbox",
+        name: "ids",
+        message: 'Selecciones',
+        choices: listadoTareas,
+    }];
+    const { ids } = await inquirer.prompt(question);
+    return ids;
+}
+
 module.exports = {
     mostrarMenu,
     pausar,
     leerEntrada,
     listadoTareasBorrar,
-    confirmar
+    confirmar,
+    mostrarListadoChecklist
 }
