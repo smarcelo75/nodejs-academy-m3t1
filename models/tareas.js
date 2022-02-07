@@ -107,6 +107,13 @@ class Tareas {
         }
         return txtListado;
     }
+
+    borrar(id) {
+        let tarea = this._listado[id];
+        if (tarea !== undefined) {
+            delete this._listado[id];
+        }
+    }
 }
 
 module.exports = {
