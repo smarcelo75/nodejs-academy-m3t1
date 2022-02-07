@@ -57,8 +57,35 @@ const leerEntrada = async(mensaje) => {
     return valor;
 }
 
+const listadoTareasBorrar = async(listado) => {
+    let listadoTareas = [{ name: '0. Cancelar'.yellow, value: '0' }];
+    for (let i = 0; i < listado.length; i += 1) {
+        listadoTareas.push({ name: `${i+1}. ${listado[i].desc}`, value: `${listado[i].id}` });
+    }
+    const question = [{
+        type: "list",
+        name: "id",
+        message: '¿Seleccione la tarea a borrar?',
+        choices: listadoTareas,
+    }];
+    const { id } = await inquirer.prompt(question);
+    return id;
+}
+
+const confirmar = async(mensaje) => {
+    const question = [{
+        type: 'confirm',
+        name: 'ok',
+        message: mensaje,
+    }];
+    const { ok } = await inquirer.prompt(question);
+    return ok;
+};
+
 module.exports = {
     mostrarMenu,
     pausar,
-    leerEntrada
+    leerEntrada,
+    listadoTareasBorrar,
+    confirmar
 }
