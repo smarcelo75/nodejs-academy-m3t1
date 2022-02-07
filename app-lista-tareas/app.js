@@ -31,6 +31,12 @@ const main = async() => {
                 case '2':
                     console.log(tareas.listadoCompleto());
                     break;
+                case '3':
+                    console.log(tareas.listarPendientesCompletadas());
+                    break;
+                case '4':
+                    console.log(tareas.listarPendientesCompletadas(false));
+                    break;
             }
         } catch (error) {
             console.error(String(error.message).red);
